@@ -1,3 +1,5 @@
 .devcontainer/
 /catkin_ws/build/
 /catkin_ws/devel/
+
+.DS_STORE

@@ -1,22 +1,15 @@
 services:
-  barracuda-rpi-docker-test:
+  ros-tutorials:
     build: .
-    container_name: barracuda-rpi-docker-test
+    container_name: ros-tutorials
     network_mode: host
     stdin_open: true
     tty: true
     restart: unless-stopped
     environment:
-      - ROS_MASTER_URI=http://192.168.2.76:11311
-      - ROS_HOSTNAME=192.168.2.1
-      - ROS_DISTRO=noetic
+      # Set these to match your ROS master location
+      - ROS_MASTER_URI=http://localhost:11311
+      # - ROS_HOSTNAME=your_hostname_here
+    # Uncomment for development - mount workspace directly
     # volumes:
-      # Optional: Mount a local catkin workspace if you have one
-      # - ./catkin_ws:/catkin_ws
-      # Optional: Mount config files
-      # - ./config:/config
-    # Optional: Add device access if needed for hardware
-    # devices:
-    #   - /dev/ttyUSB0:/dev/ttyUSB0
-    #   - /dev/ttyACM0:/dev/ttyACM0
-    command: bash -c "source /opt/ros/noetic/setup.bash && bash"
+    #   - ./catkin_ws:/catkin_ws
