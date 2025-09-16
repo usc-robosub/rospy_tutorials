@@ -81,11 +81,7 @@ docker exec -it ros-tutorials /bin/bash
 rosrun rospy_tutorials listener.py
 ```
 
-The listener is now waiting for messages. You should see:
-
-```
-[INFO] [timestamp]: /listener_xxxxx_xxxxx started
-```
+The listener is now waiting for messages. You should see a blank terminal waiting for a response from the Talker Node.
 
 #### Terminal 3: Start the Talker Node
 
