@@ -30,10 +30,21 @@ A simple Docker setup for running ROS Noetic tutorials with a basic publisher/su
 
 ## Prerequisites
 
-- Docker installed on your system
-- Docker Compose installed on your system
+- Docker installed (and opened) on your system
 
 ## Quick Start
+
+### 0. Clone and Enter Repo Directory
+
+Open your terminal and navigate to a directory where you want to save locally save this repository.
+
+```bash
+# Clone this repository
+git clone https://github.com/usc-robosub/rospy_tutorials.git
+
+# Enter the repository
+cd rospy_tutorials
+```
 
 ### 1. Build and Start the Container
 
