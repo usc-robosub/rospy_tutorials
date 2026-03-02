@@ -71,7 +71,11 @@ You'll need three separate terminal windows/tabs for this demo.
 ```bash
 # Connect to the container
 docker exec -it ros-noetic-tutorial bash
+```
 
+Within the container:
+
+```bash
 # Start the ROS master node
 roscore
 ```
@@ -79,8 +83,8 @@ roscore
 Keep this terminal running. You should see:
 
 ```
-... logging to /root/.ros/log/...
-... started core service [/rosout]
+process[rosout-1]: started with pid [127]
+started core service [/rosout]
 ```
 
 #### Terminal 2: Start the Listener Node
@@ -90,7 +94,9 @@ Open a new terminal window/tab:
 ```bash
 # Connect to the container in a new session
 docker exec -it ros-noetic-tutorial bash
+```
 
+```bash
 # Run the listener script
 rosrun rospy_tutorials listener.py
 ```
@@ -104,7 +110,9 @@ Open a third terminal window/tab:
 ```bash
 # Connect to the container in a new session
 docker exec -it ros-noetic-tutorial bash
+```
 
+```bash
 # Run the talker script
 rosrun rospy_tutorials talker.py
 ```
