@@ -42,11 +42,11 @@ Open your terminal and navigate to a directory where you want to save locally sa
 # Clone this repository
 git clone https://github.com/usc-robosub/ros-tutorials.git
 
-# Checkout to the ros-noetic branch
-git checkout ros-noetic
-
 # Enter the repository
 cd ros-tutorials
+
+# Checkout to the ros-noetic branch
+git checkout ros-noetic
 ```
 
 ### 1. Build and Start the Container
