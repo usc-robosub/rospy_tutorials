@@ -1,15 +1,30 @@
 services:
-  ros-tutorials:
+  ros-noetic-tutorial:
     build: .
-    container_name: ros-tutorials
-    network_mode: host
-    stdin_open: true
+    user: root
+    privileged: true
+    container_name: ros-noetic-tutorial
+    image: ros-noetic-tutorial
     tty: true
-    restart: unless-stopped
+    network_mode: host
     environment:
-      # Set these to match your ROS master location
       - ROS_MASTER_URI=http://localhost:11311
-      # - ROS_HOSTNAME=your_hostname_here
-    # Uncomment for development - mount workspace directly
-    # volumes:
-    #   - ./catkin_ws:/catkin_ws
+    volumes:
+      - ${HOME}/.ssh:/root/.ssh
+  ros-noetic-tutorial-dev:
+    build: .
+    user: root
+    privileged: true
+    container_name: ros-noetic-tutorial-dev
+    image: ros-noetic-tutorial-dev
+    tty: true
+    network_mode: host
+    ipc: host
+    environment:
+      - ROS_MASTER_URI=http://localhost:11311
+    volumes:
+      - ${HOME}/.ssh:/root/.ssh
+      - ${HOME}/.gitconfig:/root/.gitconfig
+      - ${HOME}/.vimrc:/root/.vimrc
+      - ./catkin_ws/src:/catkin_ws/src
+    profiles: ["dev"]

@@ -40,23 +40,26 @@ Open your terminal and navigate to a directory where you want to save locally sa
 
 ```bash
 # Clone this repository
-git clone https://github.com/usc-robosub/rospy_tutorials.git
+git clone https://github.com/usc-robosub/ros-tutorials.git
+
+# Checkout to the ros-noetic branch
+git checkout ros-noetic
 
 # Enter the repository
-cd rospy_tutorials
+cd ros-tutorials
 ```
 
 ### 1. Build and Start the Container
 
 ```bash
 # Build and start the container in detached mode
-docker compose up -d --build
+docker compose up -d
 ```
 
 This will:
 
 - Build the Docker image with ROS Noetic and your catkin workspace
-- Start the container named `ros-tutorials`
+- Start the container named `ros-noetic-tutorial`
 - Run in the background (detached mode)
 
 ### 2. Set Up Three Terminal Sessions
@@ -67,7 +70,7 @@ You'll need three separate terminal windows/tabs for this demo.
 
 ```bash
 # Connect to the container
-docker exec -it ros-tutorials /bin/bash
+docker exec -it ros-noetic-tutorial bash
 
 # Start the ROS master node
 roscore
@@ -86,7 +89,7 @@ Open a new terminal window/tab:
 
 ```bash
 # Connect to the container in a new session
-docker exec -it ros-tutorials /bin/bash
+docker exec -it ros-noetic-tutorial bash
 
 # Run the listener script
 rosrun rospy_tutorials listener.py
@@ -100,7 +103,7 @@ Open a third terminal window/tab:
 
 ```bash
 # Connect to the container in a new session
-docker exec -it ros-tutorials /bin/bash
+docker exec -it ros-noetic-tutorial bash
 
 # Run the talker script
 rosrun rospy_tutorials talker.py
@@ -159,18 +162,30 @@ docker compose down --remove-orphans --rmi all
 
 ### Mounting Workspace for Development
 
-If you want to modify the Python scripts without rebuilding the container, uncomment the volumes section in `docker-compose.yml`:
-
-```yaml
-volumes:
-  - ./catkin_ws:/catkin_ws
-```
-
-Then restart the container:
+If you want to modify the Python scripts without rebuilding the container, use the `dev` profile when starting up the container
 
 ```bash
-docker-compose down
-docker-compose up -d
+docker compose --profile dev up -d
+docker compose --profile dev down --rmi all --remove-orphans
+```
+
+Now two images and containers have been made, make sure to enter the `ros-noetic-tutorial-dev` container
+
+```bash
+docker exec -it ros-noetic-tutorial-dev
+```
+
+After making edits to any python scripts within the directories with `catkin_ws/src` on your local computer, make sure to rebuild the ros workspace
+
+```bash
+cd /catkin_ws
+catkin_make
+```
+
+When finished using and exiting the dev container, run the following command from your local machine
+
+```bash
+docker compose --profile dev down --rmi all --remove-orphans
 ```
 
 ### Checking Container Status
@@ -186,21 +201,6 @@ docker-compose logs
 docker-compose logs -f
 ```
 
-### Alternative: Single Command Execution
-
-Instead of interactive terminals, you can run commands directly:
-
-```bash
-# Start roscore in background
-docker exec -d ros-tutorials bash -c "source /opt/ros/noetic/setup.bash && source /catkin_ws/devel/setup.bash && roscore"
-
-# Run listener in background
-docker exec -d ros-tutorials bash -c "source /opt/ros/noetic/setup.bash && source /catkin_ws/devel/setup.bash && rosrun rospy_tutorials listener.py"
-
-# Run talker interactively
-docker exec -it ros-tutorials bash -c "source /opt/ros/noetic/setup.bash && source /catkin_ws/devel/setup.bash && rosrun rospy_tutorials talker.py"
-```
-
 ## Troubleshooting
 
 ### Container Won't Start
@@ -210,7 +210,8 @@ docker exec -it ros-tutorials bash -c "source /opt/ros/noetic/setup.bash && sour
 docker-compose ps
 
 # View detailed logs
-docker-compose logs ros-tutorials
+docker-compose logs ros-noetic-tutorial
+docker-compose logs ros-noetic-tutorial-dev
 ```
 
 ### ROS Nodes Can't Communicate
@@ -219,16 +220,9 @@ docker-compose logs ros-tutorials
 - Verify roscore is running in Terminal 1 before starting other nodes
 - Check that the container is using `network_mode: host`
 
-### Permission Issues
-
-```bash
-# If scripts aren't executable, fix permissions
-docker exec -it ros-tutorials chmod +x /catkin_ws/src/rospy_tutorials/scripts/*.py
-```
-
 ## What's Next?
 
 - Modify the Python scripts to experiment with different message types
 - Add more ROS nodes to the package
-- Try connecting to external ROS masters by modifying `ROS_MASTER_URI`
+- Try connecting to external ROS masters by modifying `ROS_MASTER_URI` within the  `docker-compose.yml` file
 - Explore ROS topics with `rostopic list` and `rostopic echo /chatter`
