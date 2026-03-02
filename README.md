@@ -181,10 +181,10 @@ Now two images and containers have been made, make sure to enter the `ros-noetic
 
 ```bash
 # Connect to the container
-docker exec -it ros-noetic-tutorial-dev
+docker exec -it ros-noetic-tutorial-dev bash
 ```
 
-After making edits to any python scripts within the directories with `catkin_ws/src` on your local computer, make sure to rebuild the ros workspace
+After making edits to any python scripts within the directories with `catkin_ws/src` on your local computer, make sure to rebuild resource the ros workspace
 
 ```bash
 # Change back to the root of the workspace
@@ -192,6 +192,11 @@ cd /catkin_ws
 
 # Rebuild the ros workspace
 catkin_make
+```
+
+```bash
+# Resource the new build into the current workspace
+source devel/setup.bash
 ```
 
 When finished using and exiting the dev container, run the following command from your local machine
