@@ -26,5 +26,5 @@ services:
       - ${HOME}/.ssh:/root/.ssh
       - ${HOME}/.gitconfig:/root/.gitconfig
       - ${HOME}/.vimrc:/root/.vimrc
-      - ../ros2_ws:/ros2_ws
+      - ../ros2_ws/src:/ros2_ws/src
     profiles: ["dev"]
