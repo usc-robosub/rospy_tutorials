@@ -173,26 +173,31 @@ docker compose down --remove-orphans --rmi all
 If you want to modify the Python scripts without rebuilding the container, use the `dev` profile when starting up the container
 
 ```bash
+# Build and start the dev container in detached mode
 docker compose --profile dev up -d
-docker compose --profile dev down --rmi all --remove-orphans
 ```
 
 Now two images and containers have been made, make sure to enter the `ros-noetic-tutorial-dev` container
 
 ```bash
+# Connect to the container
 docker exec -it ros-noetic-tutorial-dev
 ```
 
 After making edits to any python scripts within the directories with `catkin_ws/src` on your local computer, make sure to rebuild the ros workspace
 
 ```bash
+# Change back to the root of the workspace
 cd /catkin_ws
+
+# Rebuild the ros workspace
 catkin_make
 ```
 
 When finished using and exiting the dev container, run the following command from your local machine
 
 ```bash
+# Stop and remove the containers, networks, and orphaned containers
 docker compose --profile dev down --rmi all --remove-orphans
 ```
 
