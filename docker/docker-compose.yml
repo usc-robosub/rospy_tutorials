@@ -1,5 +1,5 @@
 services:
-  ros2-humble-ws-tutorial:
+  ros2-humble-tutorial:
     build:
       context: ..
       dockerfile: docker/Dockerfile
@@ -11,7 +11,7 @@ services:
     network_mode: host
     volumes:
       - ${HOME}/.ssh:/root/.ssh
-  ros2-humble-ws-tutorial-dev:
+  ros2-humble-tutorial-dev:
     build:
       context: ..
       dockerfile: docker/Dockerfile
