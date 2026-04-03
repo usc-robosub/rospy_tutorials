@@ -1,0 +1,21 @@
+services:
+  ros2-humble-tutorial:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PKG_SEL: ${PKG_SEL:-}
+    environment:
+      IMG_ID: ${IMG_ID:-}
+      PKG_SEL: ${PKG_SEL:-}
+    user: root
+    privileged: true
+    container_name: ${USER}-ros2-humble-tutorial${IMG_ID:+-${IMG_ID}}
+    image: ${USER}-ros2-humble-tutorial${IMG_ID:+-${IMG_ID}}
+    tty: true
+    network_mode: host
+    ipc: host
+    volumes:
+      - ${HOME}/.ssh:/root/.ssh
+      - ${PWD}/src:/root/tutorial_ws/src
+

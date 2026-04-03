@@ -60,3 +60,6 @@ COLCON_IGNORE
 
 # MacOS Files
 .DS_STORE
+
+# Local Environment variables
+.env
